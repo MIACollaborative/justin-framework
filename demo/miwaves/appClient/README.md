@@ -1,3 +1,3 @@
 # miwaves-appClient
 
-A sample app, MiWaves.
+A mobile client for MiWaves.
