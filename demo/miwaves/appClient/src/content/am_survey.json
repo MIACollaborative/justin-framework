@@ -1,0 +1,128 @@
+{
+  "name": "am_survey",
+  "header": "Good morning! Please answer the following questions and press the arrow in the bottom right corner once you are finished.",
+  "messageOnComplete": "Thanks for completing this survey!",
+  "promptList": [
+  {
+     "name": "stress_am",
+     "prompt": "How stressed are you right now?",
+      "type": "likert5",
+      "response": [0,1,2,3,4],
+      "responseLabel": ["Not at all", " ", "Somewhat", " ", "A lot"]
+  },
+  {
+      "name": "energy_am",
+      "prompt": "How energetic are you feeling?",
+      "type": "likert5",
+      "response": [0,1,2,3,4],
+      "responseLabel": ["Low energy/Sleepy", "", "", "", "Very energetic"]
+  },
+  {
+      "name": "mood_am",
+     "prompt": "How is your mood right now?",
+      "type": "likert5",
+      "response": [0,1,2,3,4],
+      "responseLabel": ["Feeling pretty low/negative", "", "", "", "Feeling really good/positive"]
+  },
+  {
+      "name": "rl_am",
+     "prompt": "Since yesterday evening, did you think about or use any activity or suggestion by MiWaves?",
+      "type": "multiple-choice",
+      "response": ["Yes", "No"],
+      "responseLabel": ["Yes", "No"]
+  },
+  {
+      "name": "sleep_am",
+     "prompt": "In the past 12 hours, what hours were you asleep?",
+      "type": "hour-input",
+      "response": [],
+      "responseLabel": []
+  },
+  {
+      "name": "can_use_am",
+     "prompt": "In the past 12 hours, which hours did you use any cannabis product?",
+      "type": "hour-input",
+      "response": [],
+      "responseLabel": []
+  },
+  {
+      "name": "reasons_use_am",
+     "prompt": "What were your reasons for using cannabis? (select all that apply)",
+      "type": "select-all",
+      "displayCondition": [
+        {"previousPromptResponseMatch": "Any cannabis use hours"}
+        ],
+      "withOther": true,
+      "otherLabel": "Another reason:",
+      "response": [1, 2, 3, 4, 5, 6, 7],
+      "responseLabel": ["To enjoy the effects", "To feel less depressed", "To feel less anxious", "To help sleep", "To feel less pain", "Nothing better to do"]
+  },
+  {
+      "name": "reasons_not_am",
+     "prompt": "During times you didn’t use cannabis, what were your reasons for not using cannabis? (select all that apply)",
+      "type": "select-all",
+      "displayCondition": [
+        {"previousPromptResponseMatch": "No cannabis use hours"}
+        ],
+      "withOther": true,
+      "otherLabel": "Another reason:",
+      "response": [1, 2, 3, 4, 5, 6],
+      "responseLabel": ["Didn’t want to", "More important things to do", "No chance/time", "Want to cut back", "Ran out"]
+  },
+  {
+      "name": "drinks_am",
+     "prompt": "How many drinks containing alcohol did you have yesterday?",
+      "type": "number-input",
+      "response": [],
+      "responseLabel": []
+  },
+  {
+      "name": "suds_am",
+     "prompt": "How anxious or distressed are you right now? Please choose a value from 0 to 10 using the following anchors:",
+      "type": "ruler",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "minLabel": "Totally relaxed, on the verge of sleep",
+      "maxLabel": "The highest anxiety you have ever experienced"
+  },
+  {
+      "name": "crave1_am",
+     "prompt": "Are you currently craving cannabis?",
+      "type": "multiple-choice",
+      "response": ["Yes", "No"],
+      "responseLabel": ["Yes", "No"]
+  },
+  {
+      "name": "crave2_am",
+     "prompt": "Please rate your cannabis craving on the following scale ",
+      "type": "likert5",
+      "displayCondition": [
+        {"previousPromptResponseMatch": "Yes"}
+      ],
+      "response": [0,1,2,3,4],
+      "responseLabel": ["No urge", "", "", "", "Extreme urge"]
+  },
+  {
+      "name": "pe_am",
+     "prompt": "Thus far today, how many minutes in total have you been engaging in physical exercise?",
+      "type": "number-input",
+      "response": [],
+      "responseLabel": []
+  },
+  {
+      "name": "social_am",
+     "prompt": "Right now, how would you rate your satisfaction with your social activities?",
+      "type": "likdert5",
+      "response": [0, 1, 2, 3, 4],
+      "responseLabel": ["Feeling pretty bad/negative", "", "", "", "Feeling really good/positive"]
+  },
+  {
+      "name": "positive_am",
+     "prompt": "Do you expect good things will happen to you later today?",
+      "type": "likdert5",
+      "response": [0, 1, 2, 3, 4],
+      "responseLabel": ["Not at all", "", "Somewhat", "", "Very Much"]
+  }
+]
+}
