@@ -1,3 +1,3 @@
 # miwaves-appClient
 
-A sample app, HeartSteps.
+A sample app, MiWaves.
