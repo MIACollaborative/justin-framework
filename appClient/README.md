@@ -1,3 +1,3 @@
 # app-client
 
-A mobile app for users/participants to receive just-in-time interventions.
+A mobile app component library for users/participants to receive just-in-time interventions.
