@@ -2,10 +2,63 @@
 //import * as React from 'react';
 import AppNav from './src/navigation/AppNav';
 import React, {useRef, useState, useEffect} from 'react';
-import {AppState, StyleSheet, Text, View} from 'react-native';
+import {AppState, StyleSheet, Text, View, Button, Platform, TouchableOpacity } from 'react-native';
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 import {DateTime} from "luxon";
+
+import { StatusBar } from 'expo-status-bar';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+import * as Location from 'expo-location';
+import { Accelerometer } from 'expo-sensors';
+
+// for background
+import { NotificationCategory } from 'expo-notifications';
+import { Subscription } from 'expo-sensors/build/Pedometer';
+
+// for demo purposes
+let counter = 0;
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+const LOCATION_TASK_NAME = 'background-location-task';
+const requestPermissions = async () => {
+  const { status } = await Location.requestBackgroundPermissionsAsync();
+  if (status === 'granted') {
+    await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+      accuracy: Location.Accuracy.Balanced,
+    });
+  }
+};
+// for background
+
+TaskManager.defineTask(LOCATION_TASK_NAME, ({ data: {locations:Object}, error }):void => {
+
+  if (error) {
+    // Error occurred - check `error.message` for more details.
+    return;
+  }
+  
+  if (data) {
+    //const { locations } = data;
+
+    let locations = data["locations"];
+
+    console.log(locations);
+    //let locations = (data:{locations:Object}).locations;
+    // do something with the locations captured in the background
+    console.log(`Background location[${counter++}]`);
+  }
+});
+
 
 const APP_STATE_REPORT_TASK = 'app-state-report-task';
 
@@ -47,6 +100,126 @@ async function unregisterBackgroundFetchAsync() {
 export default function App() {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState<Notifications.Notification | undefined>(undefined);
+  const [notificationCategory, setNotificationCategory] = useState<NotificationCategory | undefined>(undefined);
+  const notificationListener = useRef<Subscription | undefined>(undefined);
+  const responseListener = useRef<Subscription | undefined>(undefined);
+
+  // location
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  // accelerometer
+  const [data, setData] = useState({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+  const [subscription, setSubscription] = useState(null);
+
+  useEffect(() => {
+    console.log(`useEffect - notification`);
+    registerForPushNotificationsAsync().then((token: string | undefined) => {setExpoPushToken(token)});
+
+    Notifications.setNotificationCategoryAsync("notification", [
+      {
+        identifier: "a",
+        buttonTitle: "1"
+      },
+      {
+        identifier: "b",
+        buttonTitle: "2"
+      },
+      {
+        identifier: "c",
+        buttonTitle: "3"
+      }
+    ]).then((nCategory:NotificationCategory) => {
+      console.log(`setNotificationCategoryAsync.then: ${JSON.stringify(nCategory)}`);
+      setNotificationCategory(nCategory);
+    });
+
+
+
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current = Notifications.addNotificationReceivedListener((notificationX: Notifications.Notification) => {
+      setNotification(notificationX);
+
+      console.log(`notification received: ${JSON.stringify(notificationX, null, 2)}`);
+    });
+
+
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(`NotificationResponse: ${response}`);
+    });
+
+    return () => {
+      console.log(`Clean up`);
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+
+  // location
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      
+      setLocation(location);
+    })();
+  }, []);
+
+  // background
+  useEffect(() => {
+    requestPermissions();
+  }, []);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
+  // accelerometer
+  const _slow = () => {
+    Accelerometer.setUpdateInterval(1000);
+  };
+
+  const _fast = () => {
+    Accelerometer.setUpdateInterval(16);
+  };
+
+  const _subscribe = () => {
+    setSubscription(
+      Accelerometer.addListener(accelerometerData => {
+        setData(accelerometerData);
+      })
+    );
+  };
+
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+  };
+
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
+
+  const { x, y, z } = data;
 
   
   const [isRegistered, setIsRegistered] = React.useState(false);
@@ -111,6 +284,68 @@ export default function App() {
   return (
     <AppNav></AppNav>
   );
+}
+
+function round(n) {
+  if (!n) {
+    return 0;
+  }
+  return Math.floor(n * 100) / 100;
+}
+
+// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
+async function sendPushNotification(expoPushToken: string) {
+  console.log(`sendPushNotification`);
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: 'Original Title',
+    body: 'And here is the body!',
+    data: { someData: 'goes here' },
+    categoryId: "notification"
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+async function registerForPushNotificationsAsync() {
+  console.log(`registerForPushNotificationsAsync`);
+  let token: string | undefined;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
 }
 
 /*
