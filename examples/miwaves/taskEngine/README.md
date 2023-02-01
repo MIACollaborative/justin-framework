@@ -28,6 +28,32 @@ CONFIG_COLLECTION_NAME="config"
 JUSTIN_CORE_PATH= "[path to justin-core local repository]" # "C:\Users\peiyaoh\Code\justin-back"
 JUSTIN_APP_PATH="[path to sara-app local repository]" # "/Users/mwnewman/code/mia/justin/sara-app/sara"
 
+```
+
+## Create the output folder for logs
 
 ```
+
+mkdir output
+
+```
+
+## Install dependency
+
+```
+
+yarn install
+
+```
+
+## Run the task engine
+
+```
+yarn event
+
+```
+
+
+
+
 
