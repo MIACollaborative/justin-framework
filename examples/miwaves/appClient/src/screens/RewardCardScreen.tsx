@@ -1,8 +1,8 @@
 
-import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { TabHomeScreenProps, TabRewardCardScreenProps } from "../types/types";
 import GenericScreen from './GenericScreen';
-import { Canvas, Fill, Circle, BlurMask, vec } from "@shopify/react-native-skia";
+import { Canvas, Fill, Circle, BlurMask, vec, Image, useImage, Group } from "@shopify/react-native-skia";
 
 
 export default function RewardCardScreen({ navigation, route }: TabRewardCardScreenProps) {
@@ -29,9 +29,38 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
   // <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
   // <Text>Count: {count}</Text>
 
+  //const image = useImage(require("../../assets/icon.png"));
+  const size = 256;
+  const r = size * 0.33;
+  const image = useImage("https://d3c.isr.umich.edu/wp-content/uploads/2022/01/d3c-icon-copy-2.png");
+
   return (
     <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Reward Card Screen</Text>
+          <Canvas style={{ flex: 1 }}>
+      <Group blendMode="multiply">
+        <Circle cx={r} cy={r} r={r} color="cyan" />
+        <Circle cx={size - r} cy={r} r={r} color="magenta" />
+        <Circle
+          cx={size/2}
+          cy={size - r}
+          r={r}
+          color="yellow"
+        />
+      </Group>
+    </Canvas>
+      <Canvas style={{ flex: 1 }}>
+      {image && (
+        <Image
+          image={image}
+          fit="contain"
+          x={0}
+          y={0}
+          width={256}
+          height={256}
+        />
+      )}
+    </Canvas>
+    <Text>Reward Card Screen</Text>
       <Canvas style={{ flex: 1 }}>
         <Circle c={vec(128)} r={128} color="lightblue">
           <BlurMask blur={20} style="normal" />
