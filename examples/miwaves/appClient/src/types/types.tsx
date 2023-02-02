@@ -17,11 +17,13 @@ export type TabParamList = {
     Home: undefined;
     Settings: undefined;
     Survey: undefined;
+    RewardCard: undefined;
 };
 
 export type TabHomeScreenProps = BottomTabScreenProps<TabParamList, 'Home', 'MyTab'>;
 export type TabSettingsScreenProps = BottomTabScreenProps<TabParamList, 'Settings', 'MyTab'>;
 export type TabSurveyScreenProps = BottomTabScreenProps<TabParamList, 'Survey', 'MyTab'>;
+export type TabRewardCardScreenProps = BottomTabScreenProps<TabParamList, 'RewardCard', 'MyTab'>;
 
 
 export interface  ResponseWidgetProps{

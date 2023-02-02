@@ -30,7 +30,10 @@ export default function HomeScreen({ navigation, route }: TabHomeScreenProps) {
     return (
       <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-        
+      <Button
+          title="Reward Card"
+          onPress={() => navigation.navigate('RewardCard')}
+        /> 
         <Button
           title="Settings"
           onPress={() => navigation.navigate('Settings')}
