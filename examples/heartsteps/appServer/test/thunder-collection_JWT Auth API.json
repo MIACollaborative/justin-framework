@@ -1,0 +1,229 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "JWT Auth API",
+  "dateExported": "2022-10-13T21:09:19.350Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "e3cc75b7-f752-42e9-9ddf-0ad234e9443e",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Register Staff",
+      "url": "http://localhost:3500/register",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2022-10-11T02:54:08.781Z",
+      "modified": "2022-10-12T02:14:27.460Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user\": \"pat-staff\",\n  \"roles\": {\n    \"Participant\": 2001,\n    \"Staff\": 1984\n  },\n  \"pwd\": \"pass789\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "30b727a7-ce28-4625-812c-aba0a7631dae",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Register Admin",
+      "url": "http://localhost:3500/register",
+      "method": "POST",
+      "sortNum": 15000,
+      "created": "2022-10-12T02:11:33.429Z",
+      "modified": "2022-10-12T02:14:17.524Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user\": \"pat-admin\",\n  \"roles\": {\n    \"Admin\": 1999\n  },\n  \"pwd\": \"pass123\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "52c9ebcf-268a-4dcb-80ad-a3b0ab99f7ae",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Register Participant",
+      "url": "http://localhost:3500/register",
+      "method": "POST",
+      "sortNum": 17500,
+      "created": "2022-10-12T02:11:36.525Z",
+      "modified": "2022-10-12T02:14:22.076Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user\": \"pat-participant\",\n  \"pwd\": \"pass456\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "413a40cd-ff43-410b-bfa0-6f8e8eb0a655",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Authorize Participant",
+      "url": "http://localhost:3500/auth",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2022-10-11T19:01:49.806Z",
+      "modified": "2022-10-12T02:35:39.963Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user\": \"pat-participant\",\n  \"pwd\": \"pass456\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "65b1b52e-9a32-4a5a-b46a-ba35341f22c7",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Authorize Staff User Pat",
+      "url": "http://localhost:3500/auth",
+      "method": "POST",
+      "sortNum": 22500,
+      "created": "2022-10-12T01:56:58.400Z",
+      "modified": "2022-10-12T01:57:21.877Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{ \"user\": \"pat\", \"pwd\": \"pass\" }",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "822b12af-9746-4947-887f-b59644258785",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Authorize Admin",
+      "url": "http://localhost:3500/auth",
+      "method": "POST",
+      "sortNum": 25000,
+      "created": "2022-10-12T00:59:36.310Z",
+      "modified": "2022-10-12T01:00:04.701Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{ \"user\": \"walt1\", \"pwd\": \"Aa$12345\" }",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "a587a02c-d6ea-4e10-940f-354b3a42a5a3",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Authorize  Staff",
+      "url": "http://localhost:3500/auth",
+      "method": "POST",
+      "sortNum": 27500,
+      "created": "2022-10-12T01:01:42.382Z",
+      "modified": "2022-10-12T01:01:53.771Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{ \"user\": \"walt2\", \"pwd\": \"Aa$12345\" }",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "163b6d4b-3da5-4d86-b676-e1e5f81c1779",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Refresh JWT Access Token",
+      "url": "http://localhost:3500/refresh",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2022-10-11T22:29:48.305Z",
+      "modified": "2022-10-12T00:54:51.922Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "4ded94f4-e86a-472e-b945-149371702209",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "Logout Participant",
+      "url": "http://localhost:3500/logout",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2022-10-11T22:45:12.811Z",
+      "modified": "2022-10-12T02:37:10.555Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user\": \"pat-participant\",\n  \"pwd\": \"pass456\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "e2b7bf4b-485b-4d38-a02a-8a7a2bb1a734",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "GET Protected JWT User",
+      "url": "http://localhost:3500/protected/user",
+      "method": "GET",
+      "sortNum": 55000,
+      "created": "2022-10-11T21:40:10.083Z",
+      "modified": "2022-10-12T01:58:49.736Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6InBhdCIsInJvbGVzIjpbMjAwMSwxOTg0XX0sImlhdCI6MTY2NTUzOTkxNywiZXhwIjoxNjY1NTM5OTQ3fQ.xIcTXOGroe44Qlaa0ZrEM1-6HkShHZeTKqaDPBWfG_M"
+      },
+      "tests": []
+    },
+    {
+      "_id": "08905b93-e14c-44d1-abb8-e413c74c2188",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "GET Protected JWT Admin",
+      "url": "http://localhost:3500/protected/admin",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2022-10-12T00:58:26.433Z",
+      "modified": "2022-10-12T01:58:46.775Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6InBhdCIsInJvbGVzIjpbMjAwMSwxOTg0XX0sImlhdCI6MTY2NTUzOTkxNywiZXhwIjoxNjY1NTM5OTQ3fQ.xIcTXOGroe44Qlaa0ZrEM1-6HkShHZeTKqaDPBWfG_M"
+      },
+      "tests": []
+    },
+    {
+      "_id": "bb350696-d767-47de-938f-689f7f2179ff",
+      "colId": "ca3a4843-4eb7-4314-bf26-332e1fde0803",
+      "containerId": "",
+      "name": "GET Protected JWT Staff",
+      "url": "http://localhost:3500/protected/staff",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2022-10-12T01:00:40.919Z",
+      "modified": "2022-10-12T01:58:43.775Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6InBhdCIsInJvbGVzIjpbMjAwMSwxOTg0XX0sImlhdCI6MTY2NTUzOTkxNywiZXhwIjoxNjY1NTM5OTQ3fQ.xIcTXOGroe44Qlaa0ZrEM1-6HkShHZeTKqaDPBWfG_M"
+      },
+      "tests": []
+    }
+  ]
+}

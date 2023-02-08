@@ -1,0 +1,13 @@
+# Project Specific #
+.env
+/demo/db/messsages.json
+/frontend/node_modules
+/backend/node_modules
+
+# NodeJS specific #
+.nyc_output/
+coverage/
+node_modules/
+npm-debug.log
+package-lock.json
+test/*.log
