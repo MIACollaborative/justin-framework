@@ -1,70 +1,101 @@
 
+import { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { TabHomeScreenProps, TabRewardCardScreenProps } from "../types/types";
 import GenericScreen from './GenericScreen';
-import { Canvas, Fill, Circle, BlurMask, vec, Image, useImage, Group } from "@shopify/react-native-skia";
+import {
+  Canvas, Fill, Circle, BlurMask, vec, Image, useImage, Group, Mask, Rect, useTouchHandler,
+  useValue
+} from "@shopify/react-native-skia";
 
+interface Coordinate {
+  x: number;
+  y: number;
+}
 
 export default function RewardCardScreen({ navigation, route }: TabRewardCardScreenProps) {
-  //const [count, setCount] = React.useState(0);
+  const cx = useValue(100);
+  const cy = useValue(100);
 
-  /*
-  React.useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
-    navigation.setOptions({
-      headerRight: () => (
-        <Button onPress={() => setCount((c) => c + 1)} title="Update count" />
-      ),
-    });
-  }, [navigation]);
-  React.useEffect(() => {
-    if (route.params?.post) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-    }
-  }, [route.params?.post]);
-  */
+  let [paintDropList, setPaintDropList] = useState<Array<Coordinate>>([]);
 
-  // <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
-  // <Text>Count: {count}</Text>
+  const touchHandler = useTouchHandler({
+    onActive: ({ x, y }) => {
+      console.log(`onActive: ${x},${y}`);
+      let newList = [...paintDropList];
+      newList.push({
+        x: x,
+        y: y
+      });
+      setPaintDropList(newList);
+      console.log(`onActive: list.legnth: ${newList.length}`);
 
-  //const image = useImage(require("../../assets/icon.png"));
+
+      cx.current = x;
+      cy.current = y;
+
+
+
+    },
+  });
+
+
+
   const size = 256;
   const r = size * 0.33;
-  const image = useImage("https://d3c.isr.umich.edu/wp-content/uploads/2022/01/d3c-icon-copy-2.png");
+  const image = useImage("https://www.travelandleisure.com/thmb/qEhmGkCAQF4oO5TgIjJZozVdjdM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/university-michigan-library-UMICH0217-189e251b1e9b4f1a9a644a200776a3d2.jpg");
+
+  console.log(`paintDropList.length: ${paintDropList.length}`);
 
   return (
     <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Canvas style={{ width: 256, height: 256 }}>
-      <Group blendMode="multiply">
-        <Circle cx={r} cy={r} r={r} color="cyan" />
-        <Circle cx={size - r} cy={r} r={r} color="magenta" />
-        <Circle
-          cx={size/2}
-          cy={size - r}
-          r={r}
-          color="yellow"
-        />
-      </Group>
-    </Canvas>
+      <Text>Reward Card Screen</Text>
+
+      <Canvas style={{ width: 256, height: 256 }} onTouch={touchHandler}>
+        <Mask
+          mode="alpha"
+          mask={
+            <Group>
+              {
+                paintDropList.map(
+
+                  (item) => {
+                    const { x, y }: Coordinate = item;
+
+                    return <Circle cx={x} cy={y} r={50} color="red" />;
+                  }
+
+                )
+              }
+
+            </Group>
+          }
+        >
+          {image && (
+            <Image
+              image={image}
+              fit="contain"
+              x={0}
+              y={0}
+              width={256}
+              height={256}
+            />
+          )}
+        </Mask>
+
+      </Canvas>
+
       <Canvas style={{ width: 256, height: 256 }}>
-      {image && (
-        <Image
-          image={image}
-          fit="contain"
-          x={0}
-          y={0}
-          width={256}
-          height={256}
-        />
-      )}
-    </Canvas>
-    <Text>Reward Card Screen</Text>
-      <Canvas style={{ width: 256, height: 256 }}>
-        <Circle c={vec(128)} r={128} color="lightblue">
-          <BlurMask blur={20} style="normal" />
-        </Circle>
+        <Group blendMode="multiply">
+          <Circle cx={r} cy={r} r={r} color="cyan" />
+          <Circle cx={size - r} cy={r} r={r} color="magenta" />
+          <Circle
+            cx={size / 2}
+            cy={size - r}
+            r={r}
+            color="yellow"
+          />
+        </Group>
       </Canvas>
 
       <Button
