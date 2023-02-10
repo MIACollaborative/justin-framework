@@ -36,7 +36,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
 
   return (
     <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Canvas style={{ flex: 1 }}>
+          <Canvas style={{ width: 256, height: 256 }}>
       <Group blendMode="multiply">
         <Circle cx={r} cy={r} r={r} color="cyan" />
         <Circle cx={size - r} cy={r} r={r} color="magenta" />
@@ -48,7 +48,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         />
       </Group>
     </Canvas>
-      <Canvas style={{ flex: 1 }}>
+      <Canvas style={{ width: 256, height: 256 }}>
       {image && (
         <Image
           image={image}
@@ -61,7 +61,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
       )}
     </Canvas>
     <Text>Reward Card Screen</Text>
-      <Canvas style={{ flex: 1 }}>
+      <Canvas style={{ width: 256, height: 256 }}>
         <Circle c={vec(128)} r={128} color="lightblue">
           <BlurMask blur={20} style="normal" />
         </Circle>
