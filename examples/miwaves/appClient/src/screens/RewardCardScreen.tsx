@@ -7,7 +7,7 @@ import {
   Canvas, Fill, Circle, BlurMask, vec, Image, useImage, Group, Mask, Rect, useTouchHandler,
   useValue
 } from "@shopify/react-native-skia";
-//import MyImage from '../components/MyImage';
+import MyImage from '../components/MyImage';
 
 
 
@@ -95,6 +95,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         </Mask>
 
       </Canvas>
+      <MyImage source={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
       
       
 
