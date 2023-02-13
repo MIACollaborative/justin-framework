@@ -16,6 +16,7 @@
     "@rneui/themed": "^4.0.0-rc.7",
     "@shopify/react-native-skia": "0.1.157",
     "expo": "~47.0.3",
+    "expo-av": "~13.0.2",
     "expo-background-fetch": "~11.0.1",
     "expo-image": "^1.0.0-rc.0",
     "expo-modules-core": "~1.0.4 || ~1.1.1",
@@ -28,6 +29,7 @@
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-web": "~0.18.9",
+    "react-native-webview": "11.23.1",
     "voca": "^1.4.0"
   },
   "devDependencies": {

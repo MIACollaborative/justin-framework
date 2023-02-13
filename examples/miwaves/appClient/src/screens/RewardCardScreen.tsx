@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, ScrollView,TextInput } from 'react-native';
 import { TabHomeScreenProps, TabRewardCardScreenProps } from "../types/types";
 import GenericScreen from './GenericScreen';
 import {
@@ -8,9 +8,9 @@ import {
   useValue
 } from "@shopify/react-native-skia";
 import MyImage from '../components/MyImage';
+import MyPDFReader from "../components/MyPDFReader";
 
-
-
+import { Video, AVPlaybackStatus, ResizeMode } from 'expo-av';
 
 interface Coordinate {
   x: number;
@@ -20,6 +20,9 @@ interface Coordinate {
 export default function RewardCardScreen({ navigation, route }: TabRewardCardScreenProps) {
   const cx = useValue(100);
   const cy = useValue(100);
+
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
 
   let [paintDropList, setPaintDropList] = useState<Array<Coordinate>>([]);
 
@@ -59,9 +62,9 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
   console.log(`paintDropList.length: ${paintDropList.length}`);
 
   return (
-    <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Reward Card Screen</Text>
-
+      <ScrollView >
       <Canvas style={{ width: 256, height: 256 }} onTouch={touchHandler}>
         <Mask
           mode="alpha"
@@ -95,8 +98,38 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         </Mask>
 
       </Canvas>
-      <MyImage src={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
+      <MyPDFReader src={"https://drive.google.com/file/d/1bKoULnH1FVbPbcD30YN6jb1dDweGVzqA/view?usp=share_link"}></MyPDFReader>
+
+
+      </ScrollView>
+      <Button
+        title="home"
+        onPress={() => navigation.navigate('Home')}
+      />
       
+    </GenericScreen>
+
+  );
+}
+// https://www.dropbox.com/s/rlwheybjkfecka6/MiWavesInstructionMockup.pdf?dl=0
+
+// "https://www.youtube.com/watch?v=0u8lwD2bBfc"
+// https://peiyaoh.github.io/files/Hung_Pei-Yao_Resume.pdf
+
+/*
+      <Video
+        ref={video}
+        style={{ width: 360, height: 270 }}
+        source={{
+          uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+        }}
+        useNativeControls
+        resizeMode={ResizeMode.CONTAIN}
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+      <MyImage src={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
+
       
 
       <Canvas style={{ width: 256, height: 256 }}>
@@ -111,20 +144,6 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
           />
         </Group>
       </Canvas>
-
-      <Button
-        title="home"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </GenericScreen>
-
-  );
-}
-
-/*
-  <View >
-        
-  </View>
 
 */
 
