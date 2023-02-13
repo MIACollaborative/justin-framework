@@ -25,6 +25,10 @@ export type TabSettingsScreenProps = BottomTabScreenProps<TabParamList, 'Setting
 export type TabSurveyScreenProps = BottomTabScreenProps<TabParamList, 'Survey', 'MyTab'>;
 export type TabRewardCardScreenProps = BottomTabScreenProps<TabParamList, 'RewardCard', 'MyTab'>;
 
+export interface  MyImageProps{
+    source: string;
+};
+
 
 export interface  ResponseWidgetProps{
     promptResponseInfo: PromptResponseInfo;

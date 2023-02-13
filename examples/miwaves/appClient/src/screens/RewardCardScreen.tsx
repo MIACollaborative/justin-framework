@@ -7,6 +7,10 @@ import {
   Canvas, Fill, Circle, BlurMask, vec, Image, useImage, Group, Mask, Rect, useTouchHandler,
   useValue
 } from "@shopify/react-native-skia";
+//import MyImage from '../components/MyImage';
+
+
+
 
 interface Coordinate {
   x: number;
@@ -43,7 +47,14 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
 
   const size = 256;
   const r = size * 0.33;
-  const image = useImage("https://www.travelandleisure.com/thmb/qEhmGkCAQF4oO5TgIjJZozVdjdM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/university-michigan-library-UMICH0217-189e251b1e9b4f1a9a644a200776a3d2.jpg");
+  
+  //const image = useImage("https://www.travelandleisure.com/thmb/qEhmGkCAQF4oO5TgIjJZozVdjdM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/university-michigan-library-UMICH0217-189e251b1e9b4f1a9a644a200776a3d2.jpg");
+
+  // https://walktojoy.info/image/gif/dancing-bear-7.gif
+  const image = useImage("https://walktojoy.info/image/gif/dancing-bear-7.gif");
+
+
+  // <MyImage source={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
 
   console.log(`paintDropList.length: ${paintDropList.length}`);
 
@@ -84,6 +95,8 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         </Mask>
 
       </Canvas>
+      
+      
 
       <Canvas style={{ width: 256, height: 256 }}>
         <Group blendMode="multiply">
@@ -113,3 +126,5 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
   </View>
 
 */
+
+
