@@ -3,13 +3,13 @@ import { Image } from 'react-native';
 //import { Image } from 'expo-image';
 import { StyleSheet, View, Platform  } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { MyImageProps } from '../types/types';
+import { MyImageProps, MyWebViewProps } from '../types/types';
 
-const MyPDFReader: React.FC<MyImageProps> = ({src}) =>  {
+const MyPDFReader: React.FC<MyWebViewProps> = ({src, width, height}) =>  {
 
     return (
       <WebView
-          style={styles.webview}
+          style={{width, height}}
           source={{
             uri: src,
           }}
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     webview: {
         //flex: 1,
         width: '100%',
-        height: 420
+        height: '100%'
     },
     image: {
       flex: 1,

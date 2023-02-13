@@ -64,6 +64,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
   return (
     <GenericScreen navigation={navigation} route={route} style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Reward Card Screen</Text>
+      <MyPDFReader width={"100%"} height={640} src={"https://drive.google.com/file/d/1bKoULnH1FVbPbcD30YN6jb1dDweGVzqA/view?usp=share_link"}></MyPDFReader>
       <ScrollView >
       <Canvas style={{ width: 256, height: 256 }} onTouch={touchHandler}>
         <Mask
@@ -98,8 +99,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         </Mask>
 
       </Canvas>
-      <MyPDFReader src={"https://drive.google.com/file/d/1bKoULnH1FVbPbcD30YN6jb1dDweGVzqA/view?usp=share_link"}></MyPDFReader>
-
+      
 
       </ScrollView>
       <Button
