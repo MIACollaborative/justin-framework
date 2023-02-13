@@ -26,7 +26,7 @@ export type TabSurveyScreenProps = BottomTabScreenProps<TabParamList, 'Survey', 
 export type TabRewardCardScreenProps = BottomTabScreenProps<TabParamList, 'RewardCard', 'MyTab'>;
 
 export interface  MyImageProps{
-    source: string;
+    src: string;
 };
 
 

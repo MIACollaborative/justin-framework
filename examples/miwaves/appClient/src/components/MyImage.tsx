@@ -1,15 +1,24 @@
-//import { Image } from 'react-native';
-import { Image } from 'expo-image';
+import React, { Fragment, useState } from 'react';
+import { Image } from 'react-native';
+//import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 import { MyImageProps } from '../types/types';
 
-const MyImage: React.FC<MyImageProps> = ({source}) =>  {
+const MyImage: React.FC<MyImageProps> = ({src}) =>  {
     const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
   
 
+    return (
+      <Image
+          style={{ width: 250, height: 250 }}
+          source={{
+            uri: src,
+          }}
+      />
+  );
     
-
+      /*
     return (
         <Image
         style={styles.image}
@@ -19,6 +28,7 @@ const MyImage: React.FC<MyImageProps> = ({source}) =>  {
         transition={1000}
       />
     );
+    */
 }
 
 const styles = StyleSheet.create({

@@ -95,7 +95,7 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
         </Mask>
 
       </Canvas>
-      <MyImage source={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
+      <MyImage src={"https://walktojoy.info/image/gif/dancing-bear-7.gif"}></MyImage>
       
       
 
