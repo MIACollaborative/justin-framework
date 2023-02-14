@@ -53,10 +53,10 @@ export default function GenericScreen(props: any) {
 });
 
 
-
+// style={style}
 
   return (
-    <View style={style}>
+    <View style={{flex: 1}} >
       {props.children}
     </View>
   );

@@ -25,6 +25,15 @@ export type TabSettingsScreenProps = BottomTabScreenProps<TabParamList, 'Setting
 export type TabSurveyScreenProps = BottomTabScreenProps<TabParamList, 'Survey', 'MyTab'>;
 export type TabRewardCardScreenProps = BottomTabScreenProps<TabParamList, 'RewardCard', 'MyTab'>;
 
+export interface  MyWebViewProps{
+    src: string;
+    width: number | string;
+    height: number | string;
+};
+export interface  MyImageProps{
+    src: string;
+};
+
 
 export interface  ResponseWidgetProps{
     promptResponseInfo: PromptResponseInfo;
