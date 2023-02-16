@@ -27,9 +27,9 @@ export class GenericPhase extends GenericEvaluable {
 
     definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[] }[]} = {
         nodeMap: {
-            "START": {unitID: "start", label: "Start"},
-            "END": {unitID: "end", label: "End"},
-            "A": {unitId: "true", label: "True"},
+            "START": {stepId: "start", label: "Start"}, 
+            "END": {stepId: "end", label: "End"},
+            "A": {stepId: "true", label: "True"},
         },
         flow: [
             {
@@ -45,10 +45,60 @@ export class GenericPhase extends GenericEvaluable {
 
     async evaluate(user: User | null, event:GenericEvent, _metaObj?:Object):Promise<GenericRecord>{
         // let's try to impelment the evlauation flow here for phase to get a feeling first
+        this.forwardEvaluation();
+        return await this.generateRecord({}, event.providedTimestamp);
+    }
+
+    forwardEvaluation(){
+
         let definition = this.definition;
 
         // should operate on nodeId first
-        // after demonstrating the process, we can then invoke unitId, which is the acutal computational unit that will do real calucation
+        // after demonstrating the process, we can then invoke stepId, which is the acutal computational unit that will do real calucation
+
+
+        let curNodeId = "START"; 
+        console.log(`Visit node[${curNodeId}]`);
+
+        let nodeVisitMap:Object = {};
+        let nextToVisitIdList: string[] = [];
+
+        let childrenIdList: string[] = this.extractChildrenIdList(definition, curNodeId);
+        console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
+
+        nextToVisitIdList = ([] as string[]).concat(childrenIdList);
+        console.log(`nextToVisitIdList: ${nextToVisitIdList}`);
+
+        while (nextToVisitIdList.length > 0){
+            curNodeId = nextToVisitIdList.shift() as string;
+            console.log(`Visit node[${curNodeId}]`);
+            
+            if(nodeVisitMap[curNodeId]){
+                // visited before, just skipped;
+                console.log(`Skip (visited): [${curNodeId}]`);
+                continue;
+            }
+            nodeVisitMap[curNodeId] = true;
+
+            childrenIdList = this.extractChildrenIdList(definition, curNodeId);
+            console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
+            if(childrenIdList.length > 0){
+                nextToVisitIdList.unshift(...childrenIdList);
+            }
+    
+            console.log(`nextToVisitIdList: ${nextToVisitIdList}`);
+        }
+
+        console.log(`Phase [${this.name}] finish evaluattion.`);
+
+    }
+
+    backwardEvaluation(){
+
+        let definition = this.definition;
+
+        // should operate on nodeId first
+        // after demonstrating the process, we can then invoke stepId, which is the acutal computational unit that will do real calucation
 
 
         let curNodeId = "END"; 
@@ -85,26 +135,21 @@ export class GenericPhase extends GenericEvaluable {
 
         console.log(`Phase [${this.name}] finish evaluattion.`);
 
-        /*
-        let edgeWithThatChildrenList: { parent: {nodeId:string}[], children: {nodeId:string}[] }[] = [];
+    }
 
-        edgeWithThatChildrenList = definition["flow"].filter((edgeInfo) => {
-            return edgeInfo.children.some((childInfo) => {return childInfo.nodeId == curNodeId;});
+    extractChildrenIdList(definition, curNodeId:string): string[]{
+
+        let edgeWithThatParentList: { parent: {nodeId:string}[], children: {nodeId:string}[] }[] = [];
+
+        edgeWithThatParentList = definition["flow"].filter((edgeInfo) => {
+            return edgeInfo.parent.some((parentInfo) => {return parentInfo.nodeId == curNodeId;});
         });
 
-        
+        let childrenNodeIdList = edgeWithThatParentList.map((edgeInfo) => {return edgeInfo.children;}).flat(2).map((nodeInfo) => {return nodeInfo.nodeId;});
 
-        console.log(`edgeWithThatChildrenList: ${JSON.stringify(edgeWithThatChildrenList)}`);
+        //console.log(`parentNodeIdList: ${JSON.stringify(parentNodeIdList)}`);
 
-
-        let parentNodeIdList = edgeWithThatChildrenList.map((edgeInfo) => {return edgeInfo.parent;}).flat(2);
-
-        console.log(`parentNodeIdList: ${JSON.stringify(parentNodeIdList)}`);
-        */
-
-
-
-        return await this.generateRecord({}, event.providedTimestamp);
+        return childrenNodeIdList;
     }
 
     extractParentIdList(definition, curNodeId:string): string[]{

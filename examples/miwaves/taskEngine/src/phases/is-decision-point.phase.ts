@@ -26,18 +26,18 @@ export class IsDecisionPointPhase extends GenericPhase {
     // this should record how a collection of steps in this phase shoud be evaluated in sequence
     name: string = "IsDecisionPointPhase";
 
-    definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[] }[]} = {
+    definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[] }[], edge?: {parentId: string, childId: string, annotation: Object}[]} = {
         nodeMap: {
-            "START": {unitID: "start", label: "Start"},
-            "END": {unitID: "end", label: "End"},
-            "H": {unitId: "check-all-true", label: "Are all conditions true/satisfied?"},
-            "B": {unitId: "match-event-type", label: "Is this the clock event?"},
-            "E": {unitId: "match-time", label: "Is it a user's wake up time?"},
-            "G": {unitId: "check-step-over-threshold", label: "Are the stpes engouth?"},
-            "F": {unitId: "get-step-yesterday", label: "Get stpes for yesterday"},
-            "C": {unitId: "get-user-wakeup-time", label: "Get a user's prefernece (wake up time)"},
-            "D": {unitId: "get-time", label: "Get time"},
-            "A": {unitId: "get-event-type", label: "Get event type"},
+            "START": {stepId: "start", label: "Start"},
+            "END": {stepId: "end", label: "End"},
+            "H": {stepId: "check-all-true", label: "Are all conditions true/satisfied?"},
+            "B": {stepId: "match-event-type", label: "Is this the clock event?"},
+            "E": {stepId: "match-time", label: "Is it a user's wake up time?"},
+            "G": {stepId: "check-step-over-threshold", label: "Are the stpes engouth?"},
+            "F": {stepId: "get-step-yesterday", label: "Get stpes for yesterday"},
+            "C": {stepId: "get-user-wakeup-time", label: "Get a user's prefernece (wake up time)"},
+            "D": {stepId: "get-time", label: "Get time"},
+            "A": {stepId: "get-event-type", label: "Get event type"},
         },
         flow: [
             {
@@ -81,7 +81,7 @@ export class IsDecisionPointPhase extends GenericPhase {
         let definition = this.definition;
 
         // should operate on nodeId first
-        // after demonstrating the process, we can then invoke unitId, which is the acutal computational unit that will do real calucation
+        // after demonstrating the process, we can then invoke stepId, which is the acutal computational unit that will do real calucation
 
 
         let curNodeId = "END";

@@ -1,15 +1,18 @@
 import { GenericEvent } from "../models/genericevent.model";
 import { GenericPhase } from "../models/generiphase.model";
+import { SimplePhase } from "../phases/simple.phase";
 // setup
 
-let phase = new GenericPhase();
+let phase = new SimplePhase();// new GenericPhase();
 
 async function evaluatePhase(){
     await phase.evaluate(null, new GenericEvent("test", "test", new Date()));
 
 }
 
-evaluatePhase();
+evaluatePhase().then((result) => {
+    console.log(`evaluatePhase finished!`);
+})
 
 // actual testing
 /*

@@ -26,13 +26,13 @@ export class SimplePhase extends GenericPhase {
     // this should record how a collection of steps in this phase shoud be evaluated in sequence
     name: string = "SimplePhase";
 
-    definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[] }[]} = {
+    definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[], edge?: {parentId: string, childId: string, annotation: Object}[]}[]} = {
         nodeMap: {
-            "START": {unitID: "start", label: "Start"},
-            "END": {unitID: "end", label: "End"},
-            "A": {unitId: "true", label: "True"},
-            "B": {unitId: "false", label: "False"},
-            "C": {unitId: "check-all-true", label: "Are all conditions true/satisfied?"},
+            "START": {stepId: "start", label: "Start"},
+            "END": {stepId: "end", label: "End"},
+            "A": {stepId: "true", label: "True"},
+            "B": {stepId: "false", label: "False"},
+            "C": {stepId: "check-all-true", label: "Are all conditions true/satisfied?"},
         },
         flow: [
             {
@@ -41,7 +41,12 @@ export class SimplePhase extends GenericPhase {
             },
             {
                 parent: [{nodeId: "A"}, {nodeId: "B"}],
-                children: [{nodeId: "C"}]
+                children: [{nodeId: "C"}],
+                // experimental which format makes sense. For now, have both the above and below
+                edge: [
+                    {parentId: "A", childId: "C", annotation: {label: 1}}, 
+                    {parentId: "B", childId: "C", annotation: {label: 2}}
+                ]
             },
             {
                 parent: [{nodeId: "C"}],
@@ -56,7 +61,7 @@ export class SimplePhase extends GenericPhase {
         let definition = this.definition;
 
         // should operate on nodeId first
-        // after demonstrating the process, we can then invoke unitId, which is the acutal computational unit that will do real calucation
+        // after demonstrating the process, we can then invoke stepId, which is the acutal computational unit that will do real calucation
 
 
         let curNodeId = "END";
