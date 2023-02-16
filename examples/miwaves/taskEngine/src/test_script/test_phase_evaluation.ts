@@ -13,15 +13,15 @@ let phase = new SimplePhase();// new GenericPhase();
 
 async function evaluatePhase(){
     await loadTestSteps();
-    
-    let steps: GenericStep[] = await configService.getSteps();
+
+    let steps: GenericStep[] = await configService.getSteps(); 
 
 
     await phase.evaluate(null, new GenericEvent("test", "test", new Date()));
 
 }
 
-evaluatePhase().then((result) => {
+evaluatePhase().then((result) => { 
     console.log(`evaluatePhase finished!`);
 })
 

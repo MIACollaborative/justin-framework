@@ -3,6 +3,7 @@ import { getDB } from './database.service';
 import { promises as fs } from 'fs';
 import { ITrigger } from '../models/trigger.interface';
 import {GenericStep} from "../models/generic-step.model";
+import path from 'path';
 
 let configCollection: Collection;
 
@@ -98,7 +99,7 @@ export async function getSteps() {
     console.log(`stepDoc: ${JSON.stringify(stepDoc)}`);
     let stepNames = stepDoc!.steps;
 
-    console.log(`stepNames: ${stepNames}`);
+    console.log(`stepNames: ${stepNames}`); 
 
     let stepPaths = [
         process.env.JUSTIN_CORE_PATH,
@@ -110,8 +111,8 @@ export async function getSteps() {
     // instantiate Triggers
     for (let tName of stepNames) {
         // look for each trigger in JUSTIN_CORE_PATH, etc.
-        for (let tPath of stepPaths) {
-            let tFullPath = tPath + '/src/steps/' + tName + ".ts";
+        for (let tPath  of stepPaths) {
+            let tFullPath = path.join(tPath as string, '/src/steps/', tName + ".ts");
             if (await fileExists(tFullPath)) {
                 console.log("will try to load step", tFullPath);
                 stepObjects.push(await importStep(tFullPath));
