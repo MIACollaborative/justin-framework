@@ -4,7 +4,7 @@ import { GenericRecord } from "../models/genericrecord.model";
 
 import { GenericEvaluable } from "../models/genericevaluable.model";
 import { GenericEvent } from "../models/genericevent.model";
-import { GenericPhase } from "../models/generiphase.model";
+import { GenericPhase } from "../models/generic-phase.model";
 
 
 // comment

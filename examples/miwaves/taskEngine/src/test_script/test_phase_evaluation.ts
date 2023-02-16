@@ -1,11 +1,22 @@
 import { GenericEvent } from "../models/genericevent.model";
-import { GenericPhase } from "../models/generiphase.model";
+import { GenericPhase } from "../models/generic-phase.model";
 import { SimplePhase } from "../phases/simple.phase";
-// setup
+import { loadTestSteps } from "../tests/loadsteps.tests";
+import * as configService from '../db/studyconfig.service';
+import { GenericStep } from "../models/generic-step.model";
+import dotenv from 'dotenv';
+//var db = require('./db');
+
+dotenv.config();
 
 let phase = new SimplePhase();// new GenericPhase();
 
 async function evaluatePhase(){
+    await loadTestSteps();
+    
+    let steps: GenericStep[] = await configService.getSteps();
+
+
     await phase.evaluate(null, new GenericEvent("test", "test", new Date()));
 
 }
