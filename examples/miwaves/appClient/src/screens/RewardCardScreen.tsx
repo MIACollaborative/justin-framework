@@ -74,10 +74,10 @@ export default function RewardCardScreen({ navigation, route }: TabRewardCardScr
               {
                 paintDropList.map(
 
-                  (item) => {
+                  (item, index) => {
                     const { x, y }: Coordinate = item;
 
-                    return <Circle cx={x} cy={y} r={50} color="red" />;
+                    return <Circle key={index} cx={x} cy={y} r={50} color="red" />;
                   }
 
                 )

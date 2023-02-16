@@ -4,7 +4,7 @@ import { GenericRecord } from "../models/genericrecord.model";
 import { GenericEvent } from "../models/genericevent.model";
 import { GenericStep } from "../models/generic-step.model"
 
-export default class GetTimeStep extends GenericStep {
+export default class TrueStep extends GenericStep {
     name: string = "true";
 
     async evaluate(user: User | null, event:GenericEvent, _metaObj?:Object):Promise<GenericRecord>{

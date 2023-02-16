@@ -4,7 +4,7 @@ import { GenericRecord } from "../models/genericrecord.model";
 import { GenericEvent } from "../models/genericevent.model";
 import { GenericStep } from "../models/generic-step.model";
 
-export default  class GetTimeStep extends GenericStep {
+export default  class CheckAllTrueStep extends GenericStep {
     name: string = "check-all-true";
 
     async evaluate(user: User | null, event:GenericEvent, _metaObj:Object):Promise<GenericRecord>{
@@ -14,6 +14,9 @@ export default  class GetTimeStep extends GenericStep {
         // I whould be able to request the execution of a set (could be one) parent step's input
 
         let inputMap = _metaObj["inputMap"];
+
+        // A: true
+        // B: false
 
         console.log(`inputMap: ${JSON.stringify(inputMap)}`);
         
