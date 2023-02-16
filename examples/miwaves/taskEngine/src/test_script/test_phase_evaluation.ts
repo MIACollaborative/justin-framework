@@ -16,8 +16,14 @@ async function evaluatePhase(){
 
     let steps: GenericStep[] = await configService.getSteps(); 
 
+    // now, construct the step id -> step map
+    let stepMap:Object = {};
 
-    await phase.evaluate(null, new GenericEvent("test", "test", new Date()));
+    steps.forEach((step) => {
+        stepMap[step.getName()] = step;
+    });
+
+    await phase.evaluate(null, new GenericEvent("test", "test", new Date()), {stepMap:stepMap});
 
 }
 

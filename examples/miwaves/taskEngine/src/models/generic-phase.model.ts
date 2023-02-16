@@ -4,6 +4,7 @@ import { GenericRecord } from "./genericrecord.model";
 
 import { GenericEvaluable } from "./genericevaluable.model";
 import { GenericEvent } from "./genericevent.model";
+import { GenericStep } from "./generic-step.model";
 
 
 // comment
@@ -43,42 +44,58 @@ export class GenericPhase extends GenericEvaluable {
         ]
     };
 
-    async evaluate(user: User | null, event:GenericEvent, _metaObj?:Object):Promise<GenericRecord>{
+    async evaluate(user: User | null, event:GenericEvent, _metaObj:{stepMap:Object}):Promise<GenericRecord>{
         // let's try to impelment the evlauation flow here for phase to get a feeling first
-        this.forwardEvaluation();
+        await this.forwardEvaluation(user, event, _metaObj);
         return await this.generateRecord({}, event.providedTimestamp);
     }
 
-    forwardEvaluation(){
+    async forwardEvaluation(user: User | null, event:GenericEvent, _metaObj:{stepMap:Object}){
 
         let definition = this.definition;
+
+        let nodeResultMap:Object = {};
+
+        let stepMap = _metaObj.stepMap;
 
         // should operate on nodeId first
         // after demonstrating the process, we can then invoke stepId, which is the acutal computational unit that will do real calucation
 
 
         let curNodeId = "START"; 
-        console.log(`Visit node[${curNodeId}]`);
+        //console.log(`Visit node[${curNodeId}]`);
 
         let nodeVisitMap:Object = {};
-        let nextToVisitIdList: string[] = [];
+        let nextToVisitIdList: string[] = [curNodeId];
 
+        let childrenIdList: string[] = [];
+        /*
         let childrenIdList: string[] = this.extractChildrenIdList(definition, curNodeId);
         console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
 
         nextToVisitIdList = ([] as string[]).concat(childrenIdList);
         console.log(`nextToVisitIdList: ${nextToVisitIdList}`);
+        */
 
         while (nextToVisitIdList.length > 0){
             curNodeId = nextToVisitIdList.shift() as string;
-            console.log(`Visit node[${curNodeId}]`);
+            console.log(`Visit node[${curNodeId}]`); 
+
             
-            if(nodeVisitMap[curNodeId]){
+            if(nodeResultMap[curNodeId] == undefined){
+                // we have not execute
+                let stepId = this.definition.nodeMap[curNodeId].stepId;
+                let nodeStep:GenericStep = stepMap[stepId];
+                console.log(`nodeStep[${stepId}]: ${nodeStep}`);
+                let stepResult = await nodeStep.evaluate(user, event, _metaObj);
+                nodeResultMap[curNodeId] = stepResult["value"];
+            }
+            if(nodeResultMap[curNodeId] != undefined){
                 // visited before, just skipped;
                 console.log(`Skip (visited): [${curNodeId}]`);
                 continue;
             }
-            nodeVisitMap[curNodeId] = true;
+            //nodeVisitMap[curNodeId] = true;
 
             childrenIdList = this.extractChildrenIdList(definition, curNodeId);
             console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
@@ -93,7 +110,7 @@ export class GenericPhase extends GenericEvaluable {
 
     }
 
-    backwardEvaluation(){
+    async backwardEvaluation(){
 
         let definition = this.definition;
 
