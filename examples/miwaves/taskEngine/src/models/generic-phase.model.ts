@@ -65,7 +65,7 @@ export class GenericPhase extends GenericEvaluable {
         let curNodeId = "START"; 
         //console.log(`Visit node[${curNodeId}]`);
 
-        let nodeVisitMap:Object = {};
+        //let nodeVisitMap:Object = {};
         let nextToVisitIdList: string[] = [curNodeId];
 
         let childrenIdList: string[] = [];
@@ -86,27 +86,55 @@ export class GenericPhase extends GenericEvaluable {
                 // we have not execute
                 let stepId = this.definition.nodeMap[curNodeId].stepId;
                 let nodeStep:GenericStep = stepMap[stepId];
-                console.log(`nodeStep[${stepId}]: ${nodeStep}`);
-                let stepResult = await nodeStep.evaluate(user, event, _metaObj);
-                nodeResultMap[curNodeId] = stepResult["value"];
+                console.log(`node[${curNodeId}] - step [${stepId}]: ${nodeStep}`);
+                // step 1: check if all the parent has result already
+                let parentIdList = this.extractParentIdList(this.definition, curNodeId);
+                let allParentReady = this.areResultsFromNodesReady(nodeResultMap, parentIdList);
+
+                // Step 2: only execute if results from all parents are ready
+                if(allParentReady){
+                    console.log(`Result from all parent ${parentIdList} is ready for ${curNodeId}`);
+                    // execute, and add the children to the next to visit
+
+                    // extract result from parent
+
+                    let parentResultMap = this.extractResultsFromNodes(nodeResultMap, parentIdList);
+
+                    let stepResult = await nodeStep.evaluate(user, event, {inputMap: parentResultMap});
+                    console.log(`stepResult[${curNodeId}][${stepId}]: ${JSON.stringify(stepResult)}`);
+
+                    nodeResultMap[curNodeId] = stepResult["record"]["value"];
+
+                    console.log(`nodeResultMap[${curNodeId}]: ${ nodeResultMap[curNodeId]}`);
+
+                    // add children to the list
+                    childrenIdList = this.extractChildrenIdList(definition, curNodeId);
+                    console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
+                    if(childrenIdList.length > 0){
+                        childrenIdList.forEach((nodeId) => {
+                            if( !nextToVisitIdList.includes(nodeId)){
+                                nextToVisitIdList.unshift(nodeId);
+                            }
+                        });
+                        
+                    }
+                }
+                else{
+                    console.log(`Result from all parent ${parentIdList}  is NOT ready for ${curNodeId}`);
+                    // not execute, add the node to the 2nd?
+                    nextToVisitIdList.splice(1, 0, curNodeId);
+                }
             }
-            if(nodeResultMap[curNodeId] != undefined){
+            else{
                 // visited before, just skipped;
-                console.log(`Skip (visited): [${curNodeId}]`);
+                console.log(`Skip (result ready): [${curNodeId}]`);
                 continue;
             }
-            //nodeVisitMap[curNodeId] = true;
 
-            childrenIdList = this.extractChildrenIdList(definition, curNodeId);
-            console.log(`childrenIdList: ${JSON.stringify(childrenIdList)}`);
-            if(childrenIdList.length > 0){
-                nextToVisitIdList.unshift(...childrenIdList);
-            }
-    
             console.log(`nextToVisitIdList: ${nextToVisitIdList}`);
         }
 
-        console.log(`Phase [${this.name}] finish evaluattion.`);
+        console.log(`Phase [${this.name}] finish evaluattion: result -> ${nodeResultMap["END"]}.`);
 
     }
 
@@ -152,6 +180,26 @@ export class GenericPhase extends GenericEvaluable {
 
         console.log(`Phase [${this.name}] finish evaluattion.`);
 
+    }
+
+    areResultsFromNodesReady(nodeResultMap, nodeIdList: string[]):boolean{
+        if(nodeIdList.length == 0){
+            return true;
+        }
+        return nodeIdList.every((nodeId)=> {
+            return nodeResultMap[nodeId] != undefined;
+        })
+    }
+
+    extractResultsFromNodes(nodeResultMap, nodeIdList: string[]):Object{
+        let resultMap = {};
+
+        nodeIdList.forEach((nodeId) => {
+            resultMap[nodeId] = nodeResultMap[nodeId];
+        });
+
+
+        return resultMap;
     }
 
     extractChildrenIdList(definition, curNodeId:string): string[]{

@@ -13,4 +13,8 @@ export class GenericStep extends GenericEvaluable {
         return await this.generateRecord({}, event.providedTimestamp);
     }
 
+    isInputEnough(paramsObj:Object):boolean{
+        return true;
+    }
+
 }
