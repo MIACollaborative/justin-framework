@@ -121,8 +121,13 @@ export class GenericPhase extends GenericEvaluable {
                 }
                 else{
                     console.log(`Result from all parent ${parentIdList}  is NOT ready for ${curNodeId}`);
+
+                    // push it to the end
+                    nextToVisitIdList.push(curNodeId);
+
                     // not execute, add the node to the 2nd?
-                    nextToVisitIdList.splice(1, 0, curNodeId);
+                    //nextToVisitIdList.splice(1, 0, curNodeId);
+                    
                 }
             }
             else{
