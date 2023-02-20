@@ -17,8 +17,11 @@ export class GenericStep extends GenericEvaluable {
     isInputProperlySpecified(definition:Object, curNodeId:string):boolean{
         // extract those node with this node as children
         let edgeWithThatChildrenList: { parent: { nodeId: string }[], children: { nodeId: string }[] }[] = PhasStepUtility.extractEdgesWithASpecificChild(definition, curNodeId);
-        
+
         return true;
+    }
+
+    setSpec(spec:Object): void {   
     }
 
 }

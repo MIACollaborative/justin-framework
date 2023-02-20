@@ -113,7 +113,17 @@ export class GenericPhase extends GenericEvaluable {
             if (nodeResultMap[curNodeId] == undefined) {
                 // we have not execute
                 let stepId = this.definition.nodeMap[curNodeId].stepId;
+
+                // version 2:  need to conisder the spec
                 let nodeStep: GenericStep = stepMap[stepId];
+                if(definition.nodeMap[curNodeId]["stepSpec"] != undefined){
+                    // hmmm... bu thow do I specify that it is "that step"
+                    nodeStep.setSpec(definition.nodeMap[curNodeId]["stepSpec"]);
+                }
+
+                // version 1: no spec possible
+                //let nodeStep: GenericStep = stepMap[stepId];
+
                 console.log(`node[${curNodeId}] - step [${stepId}]: ${nodeStep}`);
                 // step 1: check if all the parent has result already
                 let parentIdList = PhasStepUtility.extractParentIdList(this.definition, curNodeId);
