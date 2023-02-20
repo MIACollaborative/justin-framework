@@ -17,22 +17,23 @@ userPrefs['address'] = {
 };
 
 userPrefs['messageTimePrefs'] = {
+    // let now = new Date(2022, 8, 19, 2, 55, 0); //EDT/EST
     namedTimes: [
         {
             name: 'morning',
-            time: new Date(1970, 1, 1, 8, 0)
+            time: new Date(2022, 8, 19, 8, 0, 0)
         },
         {
             name: 'midday',
-            time: new Date(1970, 1, 1, 12, 0)
+            time: new Date(2022, 8, 19, 12, 0, 0)
         },
         {
             name: 'afternoon',
-            time: new Date(1970, 1, 1, 15, 0)
+            time: new Date(2022, 8, 19, 15, 0, 0)
         }, 
         {
             name: 'evening', 
-            time: new Date(1970, 1, 1, 18, 0)
+            time: new Date(2022, 8, 19, 22, 0, 0)
         }
     ]
 }
@@ -61,8 +62,8 @@ userState['semanticLocation'] = {
 userState['timezone'] = new TimeZoneState(-240);
 
 export const testUsers = [
-    new User('123', 'participant1','Pei-Yao Hung', 'peiyaoh@umich.edu', "abcdefghi", {}, {}, userState),
-    new User('456', 'participant2','Mark Newman', 'mwnewman@umich.edu', "123456789", {}, {}, {'timezone': TimeZoneState.fromZoneName("America/Los_Angeles")}),
+    new User('123', 'participant1','Pei-Yao Hung', 'peiyaoh@umich.edu', "abcdefghi", {}, userPrefs, userState),
+    new User('456', 'participant2','Mark Newman', 'mwnewman@umich.edu', "123456789", {}, userPrefs, {'timezone': TimeZoneState.fromZoneName("America/Los_Angeles")}),
     /*
     new User('456', 'participant2','Mark Newman', 'mwnewman@umich.edu', "123456789", studyParams, userPrefs, userState),
     new User('Mark Newman', 'mwnewman@umich.edu', '123', studyParams, userPrefs, userState),

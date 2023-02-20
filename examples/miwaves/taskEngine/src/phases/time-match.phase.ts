@@ -30,8 +30,8 @@ export class TimeMatchPhase extends GenericPhase {
         nodeMap: {
             "START": {stepId: "start", label: "Start"},
             "END": {stepId: "end", label: "End"},
-            "A": {stepId: "true", label: "True"},
-            "B": {stepId: "false", label: "False"},
+            "A": {stepId: "get-time", label: "Get Time"},
+            "B": {stepId: "get-user-prefer-time", label: "Get User Prefer Time"},
             "C": {stepId: "match-two-time", label: "Is the time correct?"},
         },
 

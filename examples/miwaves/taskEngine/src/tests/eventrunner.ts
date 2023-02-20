@@ -1,4 +1,4 @@
-import { loadTestUsers } from "./loadusers.tests";
+import { loadTestUsers } from "./load-users.tests";
 import { loadTestTriggers } from "./loadtriggers.tests";
 import { doEvent } from "../main";
 import * as dotenv from 'dotenv';

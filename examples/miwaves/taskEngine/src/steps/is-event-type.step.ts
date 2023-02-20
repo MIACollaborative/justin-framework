@@ -7,8 +7,15 @@ import GeneralUtility from "../utilities/generalutilities";
 import { DateTime, DateTimeUnit, Duration, DurationObjectUnits } from "luxon";
 import PhasStepUtility from "../utilities/phase-step.utility";
 
-export default  class MatchTwoTimeStep extends GenericStep {
-    name: string = "match-two-time";
+export default  class IsEventTypeStep extends GenericStep {
+    name: string = "is-event-type";
+
+    #eventType: string;
+
+    constructor(eventType:string) {
+        super();
+        this.#eventType = eventType;
+    }
 
     async evaluate(user: User | null, event:GenericEvent, _metaObj:Object):Promise<GenericRecord>{
         // assume_metaObject contain inputs
@@ -22,6 +29,10 @@ export default  class MatchTwoTimeStep extends GenericStep {
         
         let result = true;
 
+        // assuming 
+        // the one with the annotation {label: 1 is the event}
+        // the one with the annotation {label: 2 is the event-type}
+
         let dateList:Date[] = Object.keys(inputMap).map((nodeId) => {return inputMap[nodeId];});
 
 
@@ -33,10 +44,7 @@ export default  class MatchTwoTimeStep extends GenericStep {
         console.log(`diffDateTime: ${JSON.stringify(diffDateTime.toObject())}`);
 
         
-
-        //if ( (diffDateTime.toObject())[unitsString as keyof DurationObjectUnits] != 0) {
-        
-        if ( (diffDateTime.toObject())["seconds"] != 0) {
+        if ( (diffDateTime.toObject())[unitsString as keyof DurationObjectUnits] != 0) {
             result = false;
         }
         else {
@@ -94,6 +102,14 @@ export default  class MatchTwoTimeStep extends GenericStep {
         }
 
         return result;
+    }
+
+    static fromSpec(spec: {eventType: string}): IsEventTypeStep {
+     
+        let newStep = new IsEventTypeStep(spec["eventType"]);
+        
+        return newStep;
+   
     }
 
 }
