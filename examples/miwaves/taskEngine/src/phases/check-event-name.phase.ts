@@ -32,15 +32,17 @@ export class CheckEventNamePhase extends GenericPhase {
             "END": {stepId: "end", label: "End"},
             "A": {stepId: "get-event-name", label: "Get Event Name"},
             "B": {stepId: "is-event-name", label: "Is this the clock event?", stepSpec: {eventName: "clock"}},
+            "C": {stepId: "is-event-name", label: "Is this the user-response event?", stepSpec: {eventName: "user-response"}},
+            "D": {stepId: "check-all-true", label: "All true?"},
         },
 
         /*
         START -> A
         START -> B
         A -> C
-        B -> C
+        B -> C 
         C -> END
-        */
+        */ 
         flow: [
             {
                 parent: [{nodeId: "START"}],
@@ -48,7 +50,7 @@ export class CheckEventNamePhase extends GenericPhase {
             },
             {
                 parent: [{nodeId: "A"}],
-                children: [{nodeId: "B"}],
+                children: [{nodeId: "B"}, {nodeId: "C"}],
                 // experimental which format makes sense. For now, have both the above and below
                 /*
                 edge: [
@@ -58,7 +60,11 @@ export class CheckEventNamePhase extends GenericPhase {
                 */
             },
             {
-                parent: [{nodeId: "B"}],
+                parent: [{nodeId: "B"}, {nodeId: "C"}],
+                children: [{nodeId: "D"}]
+            },
+            {
+                parent: [{nodeId: "D"}],
                 children: [{nodeId: "END"}]
             }
         ]
