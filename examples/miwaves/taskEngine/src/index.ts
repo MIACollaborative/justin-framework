@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import passport from "passport";
 var Strategy = require('passport-http-bearer').Strategy;
-import { loadTestUsers } from './tests/loadusers.tests';
+import { loadTestUsers } from './tests/load-users.tests';
 import { loadTestResponses } from './tests/loadresponses.tests';
 //var BearerStrategy = require('passport-http-bearer').BearerStrategy;
 //import {Strategy} from "passport-http-bearer";

@@ -31,7 +31,7 @@ export class IsDecisionPointPhase extends GenericPhase {
             "START": {stepId: "start", label: "Start"},
             "END": {stepId: "end", label: "End"},
             "H": {stepId: "check-all-true", label: "Are all conditions true/satisfied?"},
-            "B": {stepId: "match-event-type", label: "Is this the clock event?"},
+            "B": {stepId: "is-event-type", label: "Is this the clock event?", stepSpec: {eventType: "clock"}},
             "E": {stepId: "match-time", label: "Is it a user's wake up time?"},
             "G": {stepId: "check-step-over-threshold", label: "Are the stpes engouth?"},
             "F": {stepId: "get-step-yesterday", label: "Get stpes for yesterday"},

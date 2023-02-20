@@ -1,7 +1,7 @@
 import { GenericEvent } from "../models/genericevent.model";
 import { GenericPhase } from "../models/generic-phase.model";
 import { SimplePhase } from "../phases/simple.phase";
-import { loadTestSteps } from "../tests/loadsteps.tests";
+import { loadTestSteps } from "../tests/load-steps.tests";
 import * as configService from '../db/studyconfig.service';
 import { GenericStep } from "../models/generic-step.model";
 import dotenv from 'dotenv';
