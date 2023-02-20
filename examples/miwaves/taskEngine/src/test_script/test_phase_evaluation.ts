@@ -9,7 +9,7 @@ import { TimeMatchPhase } from "../phases/time-match.phase";
 import { ClockEvent } from "../events/clockevent.model";
 import { loadTestUsers } from "../tests/load-users.tests";
 import * as userService from '../db/users.service';
-import { CheckEventNamePhase } from "../phases/check-event-type.phase";
+import { CheckEventNamePhase } from "../phases/check-event-name.phase";
 //var db = require('./db');
 
 dotenv.config();
@@ -21,7 +21,7 @@ async function evaluatePhase(){
     await loadTestSteps();
 
     let steps: GenericStep[] = await configService.getSteps(); 
-    let users = await userService.getAllUsers();
+    let users = await userService.getAllUsers(); 
 
     // now, construct the step id -> step map
     let stepMap:Object = {};

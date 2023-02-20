@@ -116,8 +116,9 @@ export class GenericPhase extends GenericEvaluable {
 
                 // version 2:  need to conisder the spec
                 let nodeStep: GenericStep = stepMap[stepId];
-                if(definition.nodeMap[curNodeId]["stepStep"] != undefined){
+                if(definition.nodeMap[curNodeId]["stepSpec"] != undefined){
                     // hmmm... bu thow do I specify that it is "that step"
+                    nodeStep.setSpec(definition.nodeMap[curNodeId]["stepSpec"]);
                 }
 
                 // version 1: no spec possible

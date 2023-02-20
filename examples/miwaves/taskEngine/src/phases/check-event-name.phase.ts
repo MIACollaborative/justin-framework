@@ -17,7 +17,7 @@ import { GenericPhase } from "../models/generic-phase.model";
 
 [ C: "Get a user's prefernece (wakeup time)", D: "Get time" ]  -> E: "Is it a user's wake up time?"
 
-[A: "Get event type"] -> B: "Is this the clock event?"
+[A: "Get event type"] -> B: "Is this the clock event?" 
 */
 
 
