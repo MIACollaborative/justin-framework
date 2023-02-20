@@ -7,14 +7,14 @@ import GeneralUtility from "../utilities/generalutilities";
 import { DateTime, DateTimeUnit, Duration, DurationObjectUnits } from "luxon";
 import PhasStepUtility from "../utilities/phase-step.utility";
 
-export default  class IsEventTypeStep extends GenericStep {
-    name: string = "is-event-type";
+export default  class IsEventNameStep extends GenericStep {
+    name: string = "is-event-name";
 
-    #eventType: string;
+    #eventName: string;
 
-    constructor(eventType:string) {
+    constructor(eventName:string) {
         super();
-        this.#eventType = eventType;
+        this.#eventName = eventName;
     }
 
     async evaluate(user: User | null, event:GenericEvent, _metaObj:Object):Promise<GenericRecord>{
@@ -104,9 +104,9 @@ export default  class IsEventTypeStep extends GenericStep {
         return result;
     }
 
-    static fromSpec(spec: {eventType: string}): IsEventTypeStep {
+    static fromSpec(spec: {eventName: string}): IsEventNameStep {
      
-        let newStep = new IsEventTypeStep(spec["eventType"]);
+        let newStep = new IsEventNameStep(spec["eventName"]);
         
         return newStep;
    

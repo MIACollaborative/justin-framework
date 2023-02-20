@@ -9,11 +9,12 @@ import { TimeMatchPhase } from "../phases/time-match.phase";
 import { ClockEvent } from "../events/clockevent.model";
 import { loadTestUsers } from "../tests/load-users.tests";
 import * as userService from '../db/users.service';
+import { CheckEventNamePhase } from "../phases/check-event-type.phase";
 //var db = require('./db');
 
 dotenv.config();
 
-let phase = new TimeMatchPhase();// new SimplePhase();// new GenericPhase();
+let phase = new CheckEventNamePhase(); // new TimeMatchPhase();// new SimplePhase();// new GenericPhase();
 
 async function evaluatePhase(){
     await loadTestUsers();
