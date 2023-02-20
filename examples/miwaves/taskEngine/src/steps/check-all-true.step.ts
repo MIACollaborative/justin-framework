@@ -3,6 +3,7 @@ import { ITrigger } from '../models/trigger.interface';
 import { GenericRecord } from "../models/genericrecord.model";
 import { GenericEvent } from "../models/genericevent.model";
 import { GenericStep } from "../models/generic-step.model";
+import PhasStepUtility from "../utilities/phase-step.utility";
 
 export default  class CheckAllTrueStep extends GenericStep {
     name: string = "check-all-true";
@@ -33,10 +34,15 @@ export default  class CheckAllTrueStep extends GenericStep {
         return await this.generateRecord({value: result}, event.providedTimestamp);
     }
 
-    isInputEnough(paramsObj:Object):boolean{
-        // Let's see, how do I specify that all incoming edge has to provide an value
-        // well, for now, just assume that all input need to be ready to be evaluate
-        return true;
+    isInputProperlySpecified(definition:Object, curNodeId:string):boolean{
+        // extract those node with this node as children
+        let result = false;
+        let edgeWithThatChildrenList: { parent: { nodeId: string }[], children: { nodeId: string }[] }[] = PhasStepUtility.extractEdgesWithASpecificChild(definition, curNodeId);
+        
+        // So, what now. for each Edge Object, ensure that 
+        result = edgeWithThatChildrenList.length > 0;
+
+        return result;
     }
 
 }

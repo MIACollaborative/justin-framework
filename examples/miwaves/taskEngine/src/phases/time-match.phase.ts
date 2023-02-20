@@ -21,10 +21,10 @@ import { GenericPhase } from "../models/generic-phase.model";
 */
 
 
-export class SimplePhase extends GenericPhase {
+export class TimeMatchPhase extends GenericPhase {
 
     // this should record how a collection of steps in this phase shoud be evaluated in sequence
-    name: string = "SimplePhase";
+    name: string = "TimeMatchPhase";
 
     definition: {nodeMap:Object, flow:{ parent: {nodeId:string}[], children: {nodeId:string}[], edge?: {parentId: string, childId: string, annotation: Object}[]}[]} = {
         nodeMap: {
@@ -32,7 +32,7 @@ export class SimplePhase extends GenericPhase {
             "END": {stepId: "end", label: "End"},
             "A": {stepId: "true", label: "True"},
             "B": {stepId: "false", label: "False"},
-            "C": {stepId: "check-all-true", label: "Are all conditions true/satisfied?"},
+            "C": {stepId: "match-two-time", label: "Is the time correct?"},
         },
         flow: [
             {
@@ -43,12 +43,13 @@ export class SimplePhase extends GenericPhase {
                 parent: [{nodeId: "A"}, {nodeId: "B"}],
                 children: [{nodeId: "C"}],
                 // experimental which format makes sense. For now, have both the above and below
-                /*
+                
                 edge: [
                     {parentId: "A", childId: "C", annotation: {label: 1}}, 
                     {parentId: "B", childId: "C", annotation: {label: 2}}
                 ]
-                */
+                
+                
             },
             {
                 parent: [{nodeId: "C"}],
