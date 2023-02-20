@@ -34,6 +34,13 @@ export class SimplePhase extends GenericPhase {
             "B": {stepId: "false", label: "False"},
             "C": {stepId: "check-all-true", label: "Are all conditions true/satisfied?"},
         },
+        /*
+        START -> A
+        START -> B
+        A -> C
+        B -> C
+        C -> END
+        */
         flow: [
             {
                 parent: [{nodeId: "START"}],

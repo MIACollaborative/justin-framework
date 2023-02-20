@@ -34,6 +34,14 @@ export class TimeMatchPhase extends GenericPhase {
             "B": {stepId: "false", label: "False"},
             "C": {stepId: "match-two-time", label: "Is the time correct?"},
         },
+
+        /*
+        START -> A
+        START -> B
+        A -> C
+        B -> C
+        C -> END
+        */
         flow: [
             {
                 parent: [{nodeId: "START"}],
