@@ -4,7 +4,7 @@ import { GenericRecord } from "./genericrecord.model";
 import { GenericEvent } from "./genericevent.model";
 
 export class GenericEvaluable {
-    name:string;
+    name:string = "GenericEvaluable";
 
     async evaluate(user: User | null, event:GenericEvent, metaObj?:Object):Promise<GenericRecord>{
         return await this.generateRecord({}, event.providedTimestamp);
