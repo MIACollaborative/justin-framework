@@ -39,10 +39,7 @@ const Login: React.FC = () => {
     console.log('navigation: ', navigation);
 
     try {
-      const response = await axios.get('/pong', {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      });
+      const response = await axios.get('/pong');
       console.log(JSON.stringify(response?.data));
     } catch (err: any) {
       console.log('ping error: ', err.message);

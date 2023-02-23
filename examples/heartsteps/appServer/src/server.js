@@ -40,7 +40,7 @@ app.use('/register', require('./routes/register.routes'));
 app.use('/auth', require('./routes/auth.routes'));
 app.use('/refresh', require('./routes/refresh.routes'));
 app.use('/logout', require('./routes/logout.routes'));
-app.use('/ping', (req, res) => res.status(200).json({ message: 'pong' }));
+app.get('/ping', (req, res) => res.status(200).json({ message: 'pong' }));
 
 app.use(verifyJWT); // everything underneath this line uses JWT tokens
 

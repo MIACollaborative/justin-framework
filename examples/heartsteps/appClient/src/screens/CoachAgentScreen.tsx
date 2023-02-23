@@ -5,59 +5,60 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function CoachAgentScreen() {
-  const [nextButtons, setNextButtons] = useState<string[]>([]);
+  const [currOptions, setCurrOptions] = useState<string[]>(['A', 'B']);
+  // const [nextButtons, setNextButtons] = useState<string[]>([]);
 
-  const handleOptionA = () => {
-    console.log('option A selected');
-    console.log('return X');
-    return 'X';
-  };
-
-  const handleOptionB = () => {
-    console.log('option B selected');
-    console.log('return Y');
-  };
-
-  const handleOptionX = () => {
-    console.log('option X selected');
-    console.log('return A');
-    return 'A';
-  };
-
-  const handleOptionY = () => {
-    console.log('option Y selected');
-    console.log('return B');
-    return 'B';
-  };
-
-  const displayButton = (selectedOptions: string[]) => {
+  const displayCurrButtons = (selectedOptions: string[]) => {
     console.log('selectedOptions', selectedOptions);
+    let returnVal: any[] = [];
     if (selectedOptions.includes('A')) {
       console.log('includes A');
-      return <Button title="Option X" onPress={handleOptionX} />;
+      returnVal.push(
+        <Button title="Option X" onPress={() => updateOptions('X', 'A')} />
+      );
     }
     if (selectedOptions.includes('B')) {
       console.log('includes B');
-      return <Button title="Option Y" onPress={handleOptionY} />;
+      returnVal.push(
+        <Button title="Option Y" onPress={() => updateOptions('Y', 'B')} />
+      );
     }
     if (selectedOptions.includes('X')) {
-      return <Button title="Option A" onPress={handleOptionA} />;
+      returnVal.push(
+        <Button title="Option A" onPress={() => updateOptions('A', 'X')} />
+      );
     }
     if (selectedOptions.includes('Y')) {
-      return <Button title="Option B" onPress={handleOptionB} />;
+      returnVal.push(
+        <Button title="Option B" onPress={() => updateOptions('B', 'Y')} />
+      );
     }
+    return returnVal;
   };
 
-  useEffect(() => {
-    setNextButtons(['A', 'B']);
-  }, []);
+  // TODO: make parameters type string[] to add/remove multiple buttons
+  const updateOptions = (newOption: string, optionToRemove?: string) => {
+    let updatedOpts = currOptions;
+    updatedOpts = [...updatedOpts, newOption];
+    if (optionToRemove) {
+      let index = updatedOpts.indexOf(optionToRemove);
+      if (index !== -1) {
+        updatedOpts.splice(index, 1);
+      }
+    }
+    setCurrOptions(updatedOpts);
+  };
+
+  // useEffect(() => {
+  //   setCurrOptions(['A', 'B']);
+  // }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Coach Agent</Text>
       {/* <Button title="Option A" onPress={handleOptionA} /> */}
       {/* <Button title="Option B" onPress={handleOptionB} /> */}
-      {displayButton(nextButtons)}
+      {displayCurrButtons(currOptions)}
     </View>
   );
 }

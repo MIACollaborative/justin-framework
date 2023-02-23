@@ -62,6 +62,7 @@ const handleLogin = async (req, res) => {
     });
     res.json({ accessToken });
   } else {
+    console.log('ERROR: LOGIN PASSWORDS DO NOT MATCH');
     res.sendStatus(401);
   }
 };
