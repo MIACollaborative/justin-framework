@@ -4,6 +4,7 @@ const User = require('../models/user.model');
 
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
+  console.log('INSIDE HANDLE LOGIN');
   if (!user || !pwd) {
     return res
       .status(400)
@@ -11,10 +12,12 @@ const handleLogin = async (req, res) => {
   }
   const foundUser = await User.findOne({ username: user }).exec();
   if (!foundUser) {
+    console.log('ERROR: USER NOT FOUND DURING LOGIN');
     return res.sendStatus(401); // Unauthorized
   }
   // evaluate password
   const match = await bcrypt.compare(pwd, foundUser.password);
+  console.log('password match bool: ', match);
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
     // create JWTs
@@ -52,6 +55,7 @@ const handleLogin = async (req, res) => {
       httpOnly: true,
       sameSite: 'None',
       // TODO: SECURITY - SET SECURE TO TRUE, VERY IMPORTANT
+      // TODO: describe thunderclient limitations with 'secure: true'
       secure: true,
       // maxAge: oneDayInMs
       maxAge: fifteenSecInMs

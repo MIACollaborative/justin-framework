@@ -16,6 +16,15 @@ import useAuth from '../hooks/useAuth';
 import axios from '../api/axios';
 const LOGIN_URL = './auth';
 import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components/native';
+
+const CustomTitle = styled(Text)`
+  font-size: 60px;
+  align-items: center;
+  justify-content: center;
+  color: '#FFFFFF';
+  margin: 20px;
+`;
 
 const Login: React.FC = () => {
   const [user, setUser] = useState('');
@@ -28,6 +37,16 @@ const Login: React.FC = () => {
 
   const onLogin = async () => {
     console.log('navigation: ', navigation);
+
+    try {
+      const response = await axios.get('/pong', {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
+      });
+      console.log(JSON.stringify(response?.data));
+    } catch (err: any) {
+      console.log('ping error: ', err.message);
+    }
 
     try {
       const response = await axios.post(

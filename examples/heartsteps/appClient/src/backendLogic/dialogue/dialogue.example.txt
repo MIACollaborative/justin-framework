@@ -1,0 +1,8 @@
+intro -> [activitySurvey, addActivity]
+addActivity -> [walking, running]
+walking -> [timeSpent, cancel]
+timeSpent -> [thankYou]
+cancel -> [thankYou]
+thankYou -> [intro]
+
+

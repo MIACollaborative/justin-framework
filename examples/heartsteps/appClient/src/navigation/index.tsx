@@ -31,6 +31,7 @@ import DashboardScreen from '../screens/DashboardScreen';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 import PlanningScreen from '../screens/PlanningScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import CoachAgentScreen from '../screens/CoachAgentScreen';
 
 export default function Navigation({
   colorScheme
@@ -141,6 +142,14 @@ function BottomTabNavigator() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />
+        }}
+      />
+      <BottomTab.Screen
+        name="Coach"
+        component={CoachAgentScreen}
+        options={{
+          title: 'Coach',
+          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />
         }}
       />
     </BottomTab.Navigator>

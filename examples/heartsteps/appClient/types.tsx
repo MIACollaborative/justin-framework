@@ -33,6 +33,7 @@ export type RootTabParamList = {
   Activities: undefined;
   Planning: undefined;
   Settings: undefined;
+  Coach: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
