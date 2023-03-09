@@ -16,6 +16,7 @@ const Users = () => {
     const controller = new AbortController();
 
     const getUsers = async () => {
+      console.log('RUNNING GET USERS HOOK');
       try {
         const response = await axiosPrivate.get('/users', {
           signal: controller.signal
