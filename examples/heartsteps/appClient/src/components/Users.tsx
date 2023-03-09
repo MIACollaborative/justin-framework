@@ -20,7 +20,6 @@ const Users = () => {
       // console.log(response.data);
       setUsers(userNames);
     } catch (err) {
-      // FIXME: TEST REFRESH TOKEN TIMEOUT BEHAVIOR
       console.log(err);
       console.log('ACCESS TOKEN EXPIRED WHILE FETCHING USERS');
       /* 
@@ -51,7 +50,6 @@ const Users = () => {
           setUsers(userNames);
         }
       } catch (err) {
-        // FIXME: TEST REFRESH TOKEN TIMEOUT BEHAVIOR
         console.log(err);
         console.log('ACCESS TOKEN EXPIRED WHILE FETCHING USERS');
         /* 

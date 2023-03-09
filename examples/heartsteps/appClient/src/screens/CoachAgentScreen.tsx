@@ -37,14 +37,34 @@ export default function CoachAgentScreen() {
   };
 
   // TODO: make parameters type string[] to add/remove multiple buttons
+  // adds newOption button and removes optionToRemove button
   const updateOptions = (newOption: string, optionToRemove?: string) => {
     let updatedOpts = currOptions;
-    updatedOpts = [...updatedOpts, newOption];
+    if (!updatedOpts.includes(newOption)) {
+      updatedOpts = [...updatedOpts, newOption];
+    }
     if (optionToRemove) {
       let index = updatedOpts.indexOf(optionToRemove);
       if (index !== -1) {
         updatedOpts.splice(index, 1);
       }
+    }
+    setCurrOptions(updatedOpts);
+  };
+
+  const addOption = (newOption: string) => {
+    let updatedOpts = currOptions;
+    if (!updatedOpts.includes(newOption)) {
+      updatedOpts = [...updatedOpts, newOption];
+      setCurrOptions(updatedOpts);
+    }
+  };
+
+  const removeOption = (optionToRemove: string) => {
+    let updatedOpts = currOptions;
+    let index = updatedOpts.indexOf(optionToRemove);
+    if (index !== -1) {
+      updatedOpts.splice(index, 1);
     }
     setCurrOptions(updatedOpts);
   };
