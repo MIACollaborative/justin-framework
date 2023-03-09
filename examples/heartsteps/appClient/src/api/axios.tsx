@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 const { manifest } = Constants;
 
 const IPV4_API_URL = 'http://192.168.1.196:3500';
-const TUNNELED_LOCAL_URL = 'https://light-planes-win-35-128-21-85.loca.lt';
+const TUNNELED_LOCAL_URL = 'https://sweet-lights-visit-35-128-21-85.loca.lt';
 let API_URL: string | undefined = 'api.example.com';
 if (
   manifest &&
