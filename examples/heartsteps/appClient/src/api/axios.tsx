@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 const { manifest } = Constants;
 
 const IPV4_API_URL = 'http://192.168.1.196:3500';
-const TUNNELED_LOCAL_URL = 'https://sweet-mails-admire-35-128-21-85.loca.lt';
+const TUNNELED_LOCAL_URL = 'https://light-planes-win-35-128-21-85.loca.lt';
 let API_URL: string | undefined = 'api.example.com';
 if (
   manifest &&
@@ -16,12 +16,14 @@ if (
 }
 console.log(API_URL);
 
+// FIXME: won't work with local NodeJS/Expo stack
+// works with /ping, not /login request though, check axiosPrivate
 export default axios.create({
-  baseURL: IPV4_API_URL
+  baseURL: TUNNELED_LOCAL_URL
 });
 
 export const axiosPrivate = axios.create({
-  baseURL: IPV4_API_URL,
+  baseURL: TUNNELED_LOCAL_URL,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true
 });

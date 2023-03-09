@@ -52,11 +52,11 @@ const handleLogin = async (req, res) => {
     const fifteenSecInMs = 15000;
     // TODO: change expiration length
     res.cookie('jwt', refreshToken, {
-      httpOnly: true,
-      sameSite: 'None',
+      // httpOnly: true,
+      // sameSite: 'None',
       // TODO: SECURITY - SET SECURE TO TRUE, VERY IMPORTANT
       // TODO: describe thunderclient limitations with 'secure: true'
-      secure: true,
+      // secure: true,
       // maxAge: oneDayInMs
       maxAge: fifteenSecInMs
     });

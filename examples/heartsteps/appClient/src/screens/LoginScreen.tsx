@@ -14,6 +14,7 @@ import React, { useContext, useState } from 'react';
 // import { AxiosContext } from '../context/AxiosContext';
 import useAuth from '../hooks/useAuth';
 import axios from '../api/axios';
+// import axios from 'axios';
 const LOGIN_URL = './auth';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
@@ -39,8 +40,8 @@ const Login: React.FC = () => {
     console.log('navigation: ', navigation);
 
     try {
-      const response = await axios.get('/pong');
-      console.log(JSON.stringify(response?.data));
+      const response = await axios.get('/ping');
+      console.log(JSON.stringify(response));
     } catch (err: any) {
       console.log('ping error: ', err.message);
     }
@@ -57,7 +58,7 @@ const Login: React.FC = () => {
       );
 
       // TODO: SECURITY - delete log in production
-      console.log(JSON.stringify(response?.data));
+      console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       setAuth({ user, accessToken });
       console.log('auth state after login: ', { user, accessToken });
