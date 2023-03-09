@@ -8,7 +8,7 @@ export class User {
     private id: string;
     private token: string;
     private studyParams: Object | undefined;
-    private prefs: Object | undefined;
+    private prefs: Object; // | undefined;
     private state: Object | undefined;
 
     constructor(
@@ -17,9 +17,9 @@ export class User {
         name: string,
         email: string, 
         token: string, 
-        params?: Object,
-        prefs?: Object,
-        state?: Object) {
+        params: Object,
+        prefs: Object,
+        state: Object) {
             this.id = id;
             this.username = username;
             this.name = name;

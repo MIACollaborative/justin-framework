@@ -5,6 +5,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import { StackTabNavigatorScreenProps, TabParamList } from "../types/types";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SurveyScreen from "../screens/SurveyScreen";
+import RewardCardScreen from "../screens/RewardCardScreen";
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export default function TabNavigator({ navigation, route }: StackTabNavigatorScreenProps) {
@@ -47,6 +48,7 @@ export default function TabNavigator({ navigation, route }: StackTabNavigatorScr
           */
         />
         <Tab.Screen name="Survey" component={SurveyScreen} />
+        <Tab.Screen name="RewardCard" component={RewardCardScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen}
         /*
           options={({ navigation, route }) => ({

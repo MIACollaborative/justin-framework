@@ -17,11 +17,22 @@ export type TabParamList = {
     Home: undefined;
     Settings: undefined;
     Survey: undefined;
+    RewardCard: undefined;
 };
 
 export type TabHomeScreenProps = BottomTabScreenProps<TabParamList, 'Home', 'MyTab'>;
 export type TabSettingsScreenProps = BottomTabScreenProps<TabParamList, 'Settings', 'MyTab'>;
 export type TabSurveyScreenProps = BottomTabScreenProps<TabParamList, 'Survey', 'MyTab'>;
+export type TabRewardCardScreenProps = BottomTabScreenProps<TabParamList, 'RewardCard', 'MyTab'>;
+
+export interface  MyWebViewProps{
+    src: string;
+    width: number | string;
+    height: number | string;
+};
+export interface  MyImageProps{
+    src: string;
+};
 
 
 export interface  ResponseWidgetProps{

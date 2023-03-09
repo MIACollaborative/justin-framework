@@ -1,6 +1,6 @@
 import { UserResponse } from "../models/response.model";
 import { clearResponses, addResponse, getResponseById, getResponseByParticipantId } from "../db/responses.service";
-import { testUsers } from "./loadusers.tests";
+import { testUsers } from "./load-users.tests";
 
 export const testResponses = [
     new UserResponse("1", testUsers[0].getUsername(), "survey-am", "", [1,2,3], new Date(2022, 9, 4, 9, 0, 0)),
