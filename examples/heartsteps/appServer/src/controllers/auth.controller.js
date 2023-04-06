@@ -21,7 +21,6 @@ const handleLogin = async (req, res) => {
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
     // create JWTs
-    // TODO: SECURITY - ideally store accessToken in memory
     const accessToken = jwt.sign(
       {
         UserInfo: {
@@ -54,8 +53,6 @@ const handleLogin = async (req, res) => {
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       sameSite: 'None',
-      // TODO: SECURITY - SET SECURE TO TRUE, VERY IMPORTANT
-      // TODO: describe thunderclient limitations with 'secure: true'
       secure: true,
       // maxAge: oneDayInMs
       maxAge: fifteenSecInMs
