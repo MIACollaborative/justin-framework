@@ -1,10 +1,10 @@
 const User = require('../models/user.model');
-// TODO: define Coach model
 const Coach = require('../models/coach.model');
 const Express = require('express');
 
+// NOTE: These functions should work out of the box
+
 // used to fetch coachID so that participant.coachID field will match
-// TODO: make sure Request + Response type declarations work here
 const getCoachById = async (req: any, res: any) => {
   if (!req?.params?.id)
     return res.status(400).json({ message: 'Coach ID required' });

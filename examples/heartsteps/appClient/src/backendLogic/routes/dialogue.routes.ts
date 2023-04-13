@@ -4,6 +4,8 @@ const dialogueController = require('../../controllers/dialogue.controller');
 const ROLES_LIST = require('../../config/rolesList.config');
 const verifyRoles = require('../../middleware/verifyRoles.middleware');
 
+// NOTE: these API endpoints need to be unit-tested and tested with the frontend
+
 router
   .route('/')
   .get(verifyRoles(ROLES_LIST.Admin), dialogueController.getAllDialogueObjs)

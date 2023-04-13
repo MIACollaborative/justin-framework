@@ -1,5 +1,8 @@
 const Dialogue = require('../models/dialogue.model');
 
+// NOTE: these functions need to be tweaked to allow for the edge cases talked about in the example inside dialogue.model.js
+// specifically, they need to include "msgBody", "functionalCalcReq", and "functionalGlobalKey" logic
+
 /**
  * uses utterance clicked to return next dialogue object to be rendered
  * @param {any} utteranceClicked
