@@ -36,7 +36,6 @@ app.use(cookieParser());
 // app.use('/api/v1/restaurants', restaurants);
 
 // THESE ROUTES MUST COME BEFORE verifyJWT MIDDLEWARE
-app.use('/register', require('./routes/register.routes'));
 app.use('/auth', require('./routes/auth.routes'));
 app.use('/refresh', require('./routes/refresh.routes'));
 app.use('/logout', require('./routes/logout.routes'));
@@ -45,6 +44,7 @@ app.get('/ping', (req, res) => res.status(200).json({ message: 'pong' }));
 app.use(verifyJWT); // everything underneath this line uses JWT tokens
 
 // THESE ROUTES MUST COME AFTER JWT MIDDLEWARE
+app.use('/register', require('./routes/register.routes'));
 app.use('/protected', require('./routes/api/protected.routes'));
 app.use('/users', require('./routes/api/users.routes'));
 

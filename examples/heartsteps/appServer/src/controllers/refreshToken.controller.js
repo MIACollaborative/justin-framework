@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+const { User } = require('../models/user.model');
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
@@ -28,7 +28,7 @@ const handleRefreshToken = async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       // TODO: change expiration length TO MATCH auth.controller expiration
-      { expiresIn: '10s' }
+      { expiresIn: '10m' }
     );
     res.json({ accessToken });
   });

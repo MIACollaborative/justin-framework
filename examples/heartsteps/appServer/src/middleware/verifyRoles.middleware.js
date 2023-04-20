@@ -2,6 +2,7 @@
 const verifyRoles = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req?.roles) {
+      console.log('ERR: ROLES NOT PRESENT IN REQUEST');
       return res.sendStatus(401);
     }
     const rolesArray = [...allowedRoles];
@@ -12,6 +13,7 @@ const verifyRoles = (...allowedRoles) => {
       .find((val) => val === true);
 
     if (!result) {
+      console.log('ERR: ROLE CHECKING FAILED, ROLES DON NOT MATCH');
       return res.sendStatus(401);
     }
     next();

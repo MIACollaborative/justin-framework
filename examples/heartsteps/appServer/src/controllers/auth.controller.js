@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+const { User } = require('../models/user.model');
 
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
@@ -30,13 +30,13 @@ const handleLogin = async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       // TODO: change expiration length TO MATCH refresh.controller expiration
-      { expiresIn: '10s' }
+      { expiresIn: '10m' }
     );
     const refreshToken = jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
       // TODO: change expiration length
-      { expiresIn: '15s' }
+      { expiresIn: '1d' }
     );
 
     // saving refreshToken with current user
@@ -47,15 +47,15 @@ const handleLogin = async (req, res) => {
     console.log(result);
 
     // TODO: change maxAge to larger amount
-    // const oneDayInMs = 24 * 60 * 60 * 1000;
-    const fifteenSecInMs = 15000;
+    const oneDayInMs = 24 * 60 * 60 * 1000;
+    // const fifteenSecInMs = 15000;
     // TODO: change expiration length
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       sameSite: 'None',
       secure: true,
-      // maxAge: oneDayInMs
-      maxAge: fifteenSecInMs
+      maxAge: oneDayInMs
+      // maxAge: fifteenSecInMs
     });
     res.json({ accessToken });
   } else {
